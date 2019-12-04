@@ -1,0 +1,20 @@
+casTest:
+  image:          cassandra:3.0.1
+  container_name: casTest
+  ports:
+    - 9042:9042
+  environment:
+    CASSANDRA_CLUSTER_NAME: oddjob
+
+
+validic-test-run:
+  build: .
+  container_name: validic_query_test
+  links:
+    - casTest
+  ports:
+    - 4500:4500
+  environment:
+    GOPATH: "/go_projects"
+    GOBIN: "/go_projects/bin"
+    PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/go/bin"
